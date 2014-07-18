@@ -45,8 +45,7 @@ class CommentConversationList(generics.ListAPIView):
         :return:
         """
         comments = Comments.objects.filter(conversation=self.kwargs['pk'], parentId__isnull=True)\
-            .select_related('user').prefetch_related('parent_id__parent_id__parent_id__parent_id__parent_id'
-                                                     '__parent_id__parent_id')
+            .select_related('user').prefetch_related('parent_id')
         return comments
 
 

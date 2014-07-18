@@ -3,23 +3,21 @@ from rest_framework import serializers
 from .models import Conversation, Comments
 
 
+class RecursiveField(serializers.Serializer):
+    def to_native(self, obj):
+        return self.parent.to_native(obj)
+
+
 class CommentsListSerializer(serializers.ModelSerializer):
     """
     Uses black magic to create up to 7 nested comments fully serialized
     """
+    user = serializers.Field(source='user.username')
+    parent_id = RecursiveField(many=True)
+
     class Meta:
         model = Comments
         fields = ('id', 'body', 'conversation', 'user', 'created_on', 'parent_id')
-
-    user = serializers.Field(source='user.username')
-
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
-CommentsListSerializer.base_fields['parent_id'] = CommentsListSerializer(many=True)
 
 
 class CommentsSerializer(serializers.ModelSerializer):
