@@ -1,0 +1,12 @@
+{% extends 'chat/base.html' %}
+{% block content %}
+<div>
+<div ng-view class="slide-animate" autoscroll="true"></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{% load staticfiles %}
+<script src="{% static 'chat/js/chat_app.js' %}" type="text/javascript"></script>
+<script src="{% static 'chat/js/factories.js' %}" type="text/javascript"></script>
+<script src="{% static 'chat/js/controller.js' %}" type="text/javascript"></script>
+{% endblock %}

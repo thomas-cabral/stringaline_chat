@@ -1,0 +1,22 @@
+{% extends "chat/base.html" %}
+
+{% block content %}
+{% load crispy_forms_filters %}
+<div class="row">
+<div class="col-lg-offset-4 col-lg-4">
+<h1 class="page-header">Login</h1>
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+
+    {{ form|crispy }}
+
+<input class="btn btn-primary" type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+</div>
+</div>
+{% endblock %}

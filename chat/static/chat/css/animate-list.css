@@ -1,0 +1,89 @@
+.item-animate.ng-enter, .item-animate.ng-leave {
+    -webkit-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space:nowrap;
+}
+.item-animate.ng-leave
+{
+    -webkit-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 375ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space:nowrap;
+}
+
+.item-animate.ng-enter.item-animate.ng-enter-active,
+.item-animate.ng-leave {
+    opacity: 1;
+    width: 800px;
+    height: 40px;
+
+}
+
+.item-animate.ng-leave.item-animate.ng-leave-active,
+.item-animate.ng-enter {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+
+.slide-animate.ng-enter, .slide-animate.ng-leave{
+    -webkit-transition: 325ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 325ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 325ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 325ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 325ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+ }
+
+
+.slide-animate.ng-enter.ng-enter-active {
+    opacity: 1;
+    left: 0;
+    height: 30px;
+}
+
+.slide-animate.ng-enter {
+    opacity: 0;
+    left: -50px;
+    height: 0px;
+}
+
+.slide-animate.ng-leave.ng-leave-active {
+   position: absolute;
+   left: -999999px;
+   opacity: 0;
+ }
+
+.slide-animate.ng-leave {
+   right: 0;
+ }
+
+.show-hide {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+
+.show-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.show-hide.ng-hide {
+  opacity:0;
+}
+

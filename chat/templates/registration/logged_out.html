@@ -1,0 +1,15 @@
+{% extends "chat/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="row">
+<div class="col-lg-offset-4 col-lg-4">
+    <div class="text-center">
+    <p>{% trans "You have been Logged Out" %}</p>
+    <a href="/accounts/login" class="btn btn-primary text-center">Login</a>
+    </div>
+</div>
+</div>
+
+{% endblock %}
