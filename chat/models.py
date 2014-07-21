@@ -10,8 +10,8 @@ class Conversation(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
-    spawn = models.ForeignKey('self', related_name='spawns', blank=True, null=True)
-    spawn_master = models.ForeignKey('self', related_name='s_master', blank=True, null=True)
+    spawn = models.ForeignKey('self', related_name='spawns', blank=True, null=True, db_index=True)
+    spawn_master = models.ForeignKey('self', related_name='s_master', blank=True, null=True, db_index=True)
 
     user = models.ForeignKey(User)
 
@@ -24,8 +24,8 @@ class Comments(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
-    conversation = models.ForeignKey(Conversation, related_name='conversation_comments')
-    parentId = models.ForeignKey('Comments', related_name='parent_id', blank=True, null=True)
+    conversation = models.ForeignKey(Conversation, related_name='conversation_comments', db_index=True)
+    parentId = models.ForeignKey('Comments', related_name='parent_id', blank=True, null=True, db_index=True)
     user = models.ForeignKey(User)
 
     def __str__(self):

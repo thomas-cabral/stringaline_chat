@@ -38,10 +38,17 @@ class ConversationSerializer(serializers.ModelSerializer):
     comment_count = serializers.Field(source='conversation_comments.count')
 
 
-class ConversationCommentsSerializer(serializers.ModelSerializer):
+class ConversationSimpleSpawn(serializers.ModelSerializer):
     class Meta:
         model = Conversation
-        fields = ('id', 'title', 'body', 'user')
+        fields = ('id', 'title')
+
+
+class ConversationDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Conversation
+        fields = ('id', 'title', 'body', 'user', 'spawn', 'spawns', 'spawn_master')
 
     user = serializers.Field(source='user.username')
-    #comments = CommentsSerializer(source='conversation_comments')
+    spawns = ConversationSimpleSpawn(many=True, read_only=True)
+    spawn_master = ConversationSimpleSpawn(read_only=True)

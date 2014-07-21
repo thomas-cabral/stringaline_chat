@@ -1,7 +1,7 @@
 from django.views import generic
 from rest_framework import generics, permissions
 
-from .serializers import CommentsSerializer, ConversationSerializer, ConversationCommentsSerializer,\
+from .serializers import CommentsSerializer, ConversationSerializer, ConversationDetailSerializer, \
     CommentsListSerializer
 from .permissions import IsOwnerOrReadOnly
 from .models import Conversation, Comments
@@ -19,10 +19,14 @@ class ConversationList(generics.ListCreateAPIView):
 
 
 class ConversationDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Conversation.objects.all().select_related('user')
-    serializer_class = ConversationCommentsSerializer
+    serializer_class = ConversationDetailSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly,)
+
+    def get_queryset(self):
+        conversation = Conversation.objects.filter(pk=self.kwargs['pk'], ).select_related('user')\
+            .prefetch_related('conversation_comments', 's_master', 'spawns')
+        return conversation
 
 
 class CommentsList(generics.ListCreateAPIView):
@@ -39,14 +43,10 @@ class CommentConversationList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        """
-        prefect_related up to 7 layers of comments
-        reduces queries by 1 per nested comment at each level
-        :return:
-        """
-        comments = Comments.objects.filter(conversation=self.kwargs['pk'], parentId__isnull=True)\
-            .select_related('user').prefetch_related('parent_id')
-        return comments
+        comments = Comments.objects.filter(conversation=self.kwargs['pk'], parentId__isnull=True)
+        c = comments.select_related().prefetch_related('parent_id')
+
+        return c
 
 
 class IndexView(generic.TemplateView):
