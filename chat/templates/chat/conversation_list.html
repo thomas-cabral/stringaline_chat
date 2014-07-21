@@ -13,9 +13,9 @@
 <div class="row top-buffer">
     <div class="col-lg-12">
         <div class="text-center">
-        <button class="btn btn-default btn-circle btn-lg animate-show" ng-show="form" ng-click="form=null"><i class="fa fa-plus"></i> </button>
-        <button class="btn btn-success btn-circle btn-lg animate-show" ng-hide="form" ng-click="form=1"><i class="fa fa-plus"></i> </button>
-        <button class="btn btn-default btn-circle btn-lg" ng-click="refresh()"><i class="fa fa-refresh"></i> </button>
+        <button class="btn btn-default btn-circle btn-lg marker-left" title="Close Form" ng-show="form" ng-click="form=null"><i class="fa fa-plus"></i> </button>
+        <button class="btn btn-success btn-circle btn-lg marker-left" title="Create new Conversation" ng-hide="form" ng-click="form=1"><i class="fa fa-plus"></i> </button>
+        <button class="btn btn-default btn-circle btn-lg marker-right" title="Refresh Conversation List" ng-click="refresh()"><i class="fa fa-refresh"></i> </button>
         </div>
     </div>
 </div>
@@ -51,7 +51,15 @@
             </div>
         </li>
     </ul>
-</div>
+    </div>
 </div>
 </div>
 {% endverbatim %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".marker-left").tooltip({placement: 'left'});
+});
+$(document).ready(function(){
+    $(".marker-right").tooltip({placement: 'right'});
+});
+</script>
