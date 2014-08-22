@@ -1,9 +1,3 @@
-conversationApp.run( function run($http, $cookies ){
-
-    // Grab the CSRF Token
-    $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
-});
-
 conversationApp.factory('ConversationsFactory', function (djResource) {
     return djResource('/api/conversation/', {}, {
         query: { method: 'GET', isArray: true },

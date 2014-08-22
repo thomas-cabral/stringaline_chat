@@ -17,13 +17,12 @@ conversationApp.config(function($routeProvider, $locationProvider, $httpProvider
         .when('/:id', {
             templateUrl : '/angular/conversation-detail/',
             controller : 'ConversationDetailCtrl'
-        })
-
-        .when('/:id/edit', {
-            templateUrl : '/angular_edit',
-            controller : 'ConversationDetailCtrl'
         });
 
     //$locationProvider.html5Mode(true);
-    //$httpProvider.provider.defaults.headers.post["X-CSRFToken"] = getCookie('csrftoken');
+});
+
+conversationApp.run( function run($http, $cookies ){
+    // Grab the CSRF Token
+    $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
 });

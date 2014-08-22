@@ -50,5 +50,6 @@ class ConversationDetailSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'body', 'user', 'spawn', 'spawns', 'spawn_master')
 
     user = serializers.Field(source='user.username')
+    spawn = ConversationSimpleSpawn(read_only=True)
     spawns = ConversationSimpleSpawn(many=True, read_only=True)
     spawn_master = ConversationSimpleSpawn(read_only=True)
