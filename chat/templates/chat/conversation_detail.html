@@ -78,16 +78,19 @@
                                   data-toggle="modal" data-target=".commentsReplyModal">Reply</button></p>
     </div>
 <ul>
-    <li ng-repeat="comment in comments = (parent = comment).parent_id"
+    <!--
+        1. Loop through Children as comment.children
+        2. Place under Parent
+    -->
+    <li ng-repeat="comment in comments = (children = comment).children"
             ng-init="comment.parent = parent; comment.level = parent.level + 1"
             class="item-animate" ng-include="'tree_item_renderer.html'">
     </li>
 </ul>
 </script>
 
-
 <div class="collapse in" id="demo">
-    <div class="item-animate" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'"></div>
+    <div class="item-animate well" ng-repeat="comment in comments" ng-include="'tree_item_renderer.html'"></div>
 </div>
 
     </div>

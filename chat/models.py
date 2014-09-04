@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
+from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 
 
@@ -20,12 +21,12 @@ class Conversation(models.Model):
 
 
 @python_2_unicode_compatible
-class Comments(models.Model):
+class Comments(MPTTModel):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
     conversation = models.ForeignKey(Conversation, related_name='conversation_comments', db_index=True)
-    parentId = models.ForeignKey('Comments', related_name='parent_id', blank=True, null=True, db_index=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     user = models.ForeignKey(User)
 
     def __str__(self):

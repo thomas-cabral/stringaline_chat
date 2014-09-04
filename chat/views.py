@@ -6,6 +6,8 @@ from .serializers import CommentsSerializer, ConversationSerializer, Conversatio
 from .permissions import IsOwnerOrReadOnly
 from .models import Conversation, Comments
 
+from rest_framework.response import Response
+
 
 class ConversationList(generics.ListCreateAPIView):
     queryset = Conversation.objects.all().select_related('user')\
@@ -43,10 +45,16 @@ class CommentConversationList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        comments = Comments.objects.filter(conversation=self.kwargs['pk'], parentId__isnull=True)
-        c = comments.select_related().prefetch_related('parent_id')
+        comments = Comments.objects.filter(conversation=self.kwargs['pk'], parent__isnull=True)
+        c = comments.prefetch_related('children').select_related('user')
 
         return c
+
+    def list(self, request, *args, **kwargs):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = CommentsListSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class IndexView(generic.TemplateView):

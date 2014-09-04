@@ -9,21 +9,19 @@ class RecursiveField(serializers.Serializer):
 
 
 class CommentsListSerializer(serializers.ModelSerializer):
-    """
-    Uses black magic to create up to 7 nested comments fully serialized
-    """
-    user = serializers.Field(source='user.username')
-    parent_id = RecursiveField(many=True)
+    body = serializers.CharField(required=True)
+    user = serializers.Field(source='user')
+    children = RecursiveField(many=True)
 
     class Meta:
         model = Comments
-        fields = ('id', 'body', 'conversation', 'user', 'created_on', 'parent_id')
+        fields = ('id', 'body', 'conversation', 'user', 'created_on', 'parent', 'children')
 
 
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ('id', 'body', 'conversation', 'user', 'created_on', 'parentId')
+        fields = ('id', 'body', 'conversation', 'user', 'created_on', 'parent')
 
     user = serializers.Field(source='user.username')
 

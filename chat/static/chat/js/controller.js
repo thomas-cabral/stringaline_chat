@@ -5,6 +5,7 @@ conversationApp.controller('ConversationDetailCtrl', ['$scope', '$routeParams', 
         $scope.scopeSet = function (id, position) {
             $scope.parentId = id;
             $scope.position = position;
+            alert(position.id);
         };
 
         $scope.save = function () {
@@ -29,13 +30,13 @@ conversationApp.controller('ConversationDetailCtrl', ['$scope', '$routeParams', 
 
         // create a comment nested under another comment and push to correct location
         $scope.createNewCommentReply = function () {
-            var position = $scope.postion;
+            var position = $scope.position;
                 console.log(position);
             $scope.comment.conversation = $scope.conversation.id;
-            $scope.comment.parentId = $scope.parentId;
+            $scope.comment.parent = $scope.parentId;
             CommentsFactory.create($scope.comment, function(data){
-                data.parent_id = [];
-                $scope.position.parent_id.push(data);
+                data.children = [];
+                $scope.position.children.push(data);
                 $scope.comment = null;
                 $scope.error = null;
             }, function(error) {
@@ -51,6 +52,10 @@ conversationApp.controller('ConversationDetailCtrl', ['$scope', '$routeParams', 
 
         $scope.comments = CommentsListFactory.query({id: $routeParams.id});
         $scope.conversation = ConversationFactory.show({id: $routeParams.id});
+
+        $scope.spawn = function () {
+
+        };
     }
 ]);
 
